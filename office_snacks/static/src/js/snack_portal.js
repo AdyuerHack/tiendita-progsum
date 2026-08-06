@@ -1,5 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
-    
+function initSnackPortal() {
     function showToast(message, type) {
         var bgClass = type === 'success' ? 'bg-success' : 'bg-danger';
         var toastHtml = `
@@ -13,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         `;
         var container = document.getElementById('snack_toast_container');
+        if (!container) return; // Prevent errors if not on the catalog page
         container.insertAdjacentHTML('beforeend', toastHtml);
         var toast = container.lastElementChild;
         setTimeout(function () {
@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     document.querySelectorAll('.js_buy_snack').forEach(function(btn) {
+        // Evitar adjuntar múltiples veces si se ejecuta de nuevo
+        if (btn.dataset.listenerAttached) return;
+        btn.dataset.listenerAttached = 'true';
+
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var productId = this.getAttribute('data-product-id');
@@ -87,4 +91,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     });
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener("DOMContentLoaded", initSnackPortal);
+} else {
+    initSnackPortal();
+}
