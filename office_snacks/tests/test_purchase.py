@@ -8,7 +8,8 @@ class TestPurchase(TransactionCase):
         super().setUp()
         self.owner = self.env['res.partner'].create({
             'name': 'Dueño Test',
-            'is_snack_user': True
+            'is_snack_user': True,
+            'is_snack_vendor': True,
         })
         self.consumer = self.env['res.partner'].create({
             'name': 'Consumidor Test',

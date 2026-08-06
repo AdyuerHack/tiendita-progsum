@@ -10,7 +10,7 @@ class SnackProduct(models.Model):
     currency_id = fields.Many2one('res.currency', string="Moneda", 
                                   default=lambda self: self.env.company.currency_id.id, required=True)
     owner_id = fields.Many2one('res.partner', string="Dueño", required=True, 
-                               domain="[('is_snack_user', '=', True)]",
+                               domain="[('is_snack_vendor', '=', True)]",
                                default=lambda self: self.env.user.partner_id.id)
     stock = fields.Integer(string="Stock", default=0, required=True)
     image = fields.Binary(string="Imagen")

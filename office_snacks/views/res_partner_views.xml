@@ -11,6 +11,7 @@
                         <group>
                             <group string="Datos Básicos">
                                 <field name="is_snack_user"/>
+                                <field name="is_snack_vendor"/>
                                 <field name="snack_pin" password="True"/> 
                             </group>
                             <group string="Información de Recaudo">

@@ -9,7 +9,8 @@ class TestPaymentFlow(TransactionCase):
         super().setUp()
         self.owner = self.env['res.partner'].create({
             'name': 'Dueño Test Pagos',
-            'is_snack_user': True
+            'is_snack_user': True,
+            'is_snack_vendor': True
         })
         self.consumer = self.env['res.partner'].create({
             'name': 'Consumidor Test Pagos',

@@ -4,7 +4,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    is_snack_user = fields.Boolean(string="Es Usuario/Dueño de Snacks", default=False)
+    is_snack_user = fields.Boolean(string="Es Comprador de Snacks", default=False)
+    is_snack_vendor = fields.Boolean(string="Es Vendedor/Dueño de Snacks", default=False)
     
     # Campo UI para setear el PIN sin guardar en texto plano
     snack_pin = fields.Char(string="Nuevo PIN de Snacks", store=False, inverse='_inverse_snack_pin')
