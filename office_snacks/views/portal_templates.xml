@@ -57,7 +57,7 @@
                         <div class="col">
                             <div class="card h-100 text-center shadow-sm">
                                 <div class="card-img-top p-3 text-center">
-                                    <img t-if="product.image" t-attf-src="data:image/png;base64,{{product.image}}" class="img-fluid" style="max-height: 120px;" alt="Snack"/>
+                                    <img t-if="product.image" t-att-src="image_data_uri(product.image)" class="img-fluid" style="max-height: 120px;" alt="Snack"/>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold text-truncate" t-esc="product.name"></h5>
@@ -132,7 +132,7 @@
                         
                         <t t-if="owner.qr_payment_image">
                             <p class="text-muted mb-2">O escanea este QR:</p>
-                            <img t-attf-src="data:image/png;base64,{{owner.qr_payment_image}}" alt="QR Code" class="img-fluid mb-4" style="max-height: 250px;"/>
+                            <img t-att-src="image_data_uri(owner.qr_payment_image)" alt="QR Code" class="img-fluid mb-4" style="max-height: 250px;"/>
                         </t>
                         
                         <hr/>
