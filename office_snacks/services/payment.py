@@ -7,7 +7,7 @@ class PaymentService:
     def get_owner(env, owner_id):
         """Retorna el partner dueño de manera segura."""
         owner = env['res.partner'].sudo().browse(owner_id)
-        if owner.exists() and owner.is_snack_user:
+        if owner.exists():
             return owner
         return None
 
