@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="snack_layout">
+            <t t-call="website.layout">
+                <div id="wrap" class="container mt-4 mb-5">
+                    <t t-out="0"/>
+                </div>
+            </t>
+        </template>
+
+        <template id="login_template" name="Office Snacks Login">
+            <t t-call="office_snacks.snack_layout">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 col-lg-4">
+                        <h2 class="text-center mb-4">Ingreso de Snacks</h2>
+                        <t t-if="error">
+                            <div class="alert alert-danger" role="alert">
+                                Credenciales incorrectas.
+                            </div>
+                        </t>
+                        <form action="/snacks/login/submit" method="post">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <div class="mb-3">
+                                <label for="partner_id" class="form-label">Usuario</label>
+                                <select name="partner_id" id="partner_id" class="form-select" required="1">
+                                    <option value="">Selecciona tu nombre...</option>
+                                    <t t-foreach="partners" t-as="p">
+                                        <option t-att-value="p.id"><t t-esc="p.name"/></option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pin" class="form-label">PIN</label>
+                                <input type="password" class="form-control text-center fs-2" name="pin" id="pin" pattern="[0-9]*" inputmode="numeric" required="1" />
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 btn-lg">Ingresar</button>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="catalog_template" name="Catálogo de Snacks">
+            <t t-call="office_snacks.snack_layout">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Hola, <t t-esc="consumer.name"/></h3>
+                    <div>
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <a href="/snacks/debt" class="btn btn-outline-danger me-2">Mis Deudas</a>
+                        <a href="/snacks/logout" class="btn btn-outline-secondary">Salir</a>
+                    </div>
+                </div>
+                
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <t t-foreach="products" t-as="product">
+                        <div class="col">
+                            <div class="card h-100 text-center shadow-sm">
+                                <div class="card-img-top p-3 text-center">
+                                    <img t-if="product.image" t-attf-src="data:image/png;base64,{{product.image}}" class="img-fluid" style="max-height: 120px;" alt="Snack"/>
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold text-truncate" t-esc="product.name"></h5>
+                                    <p class="card-text text-muted mb-2"><t t-esc="product.price" t-options='{"widget": "monetary", "display_currency": product.currency_id}'/></p>
+                                    <p class="small text-muted mb-3">Disp: <t t-esc="product.stock"/></p>
+                                    <button class="btn btn-primary w-100 js_buy_snack" t-att-data-product-id="product.id">Comprar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+                <div id="snack_toast_container" class="position-fixed bottom-0 end-0 p-3" style="z-index: 11"></div>
+            </t>
+        </template>
+
+        <template id="debt_template" name="Mis Deudas">
+            <t t-call="office_snacks.snack_layout">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Mis Deudas</h3>
+                    <a href="/snacks" class="btn btn-outline-secondary">Volver al Catálogo</a>
+                </div>
+                
+                <t t-if="success">
+                    <div class="alert alert-success">Pago reportado exitosamente. En espera de aprobación.</div>
+                </t>
+                
+                <t t-if="not debt_summary">
+                    <div class="text-center mt-5 text-muted">
+                        <i class="fa fa-smile-o fa-4x mb-3"></i>
+                        <h4>¡No debes nada! Todo al día.</h4>
+                    </div>
+                </t>
+                
+                <div class="list-group">
+                    <t t-foreach="debt_summary" t-as="debt">
+                        <div class="list-group-item d-flex justify-content-between align-items-center p-4 shadow-sm mb-3 rounded border">
+                            <div>
+                                <h5 class="mb-1">Deuda a <t t-esc="debt['owner_name']"/></h5>
+                                <p class="mb-0 text-muted">Productos sin pagar: <t t-esc="len(debt['consumption_ids'])"/></p>
+                                <h4 class="mt-2 text-danger">
+                                    <t t-esc="debt['total_amount']" t-options="{'widget': 'monetary', 'display_currency': request.env['res.currency'].browse(debt['currency_id'])}"/>
+                                </h4>
+                            </div>
+                            <a t-attf-href="/snacks/pay/{{debt['owner_id']}}" class="btn btn-success btn-lg">Pagar</a>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+        <template id="pay_template" name="Reportar Pago">
+            <t t-call="office_snacks.snack_layout">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Pagar a <t t-esc="owner.name"/></h3>
+                    <a href="/snacks/debt" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+                
+                <t t-if="error">
+                    <div class="alert alert-danger">Ocurrió un error al procesar tu pago.</div>
+                </t>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <h4 class="text-danger mb-4">Total a transferir: <t t-esc="owner_debt['total_amount']" t-options="{'widget': 'monetary', 'display_currency': request.env['res.currency'].browse(owner_debt['currency_id'])}"/></h4>
+                        
+                        <div class="bg-light p-3 rounded mb-4">
+                            <p class="mb-1 text-muted">Banco / Billetera</p>
+                            <h5><t t-esc="owner.payment_bank"/></h5>
+                            <p class="mb-1 mt-3 text-muted">Cuenta / Llave</p>
+                            <h5 class="fw-bold"><t t-esc="owner.payment_account"/></h5>
+                        </div>
+                        
+                        <t t-if="owner.qr_payment_image">
+                            <p class="text-muted mb-2">O escanea este QR:</p>
+                            <img t-attf-src="data:image/png;base64,{{owner.qr_payment_image}}" alt="QR Code" class="img-fluid mb-4" style="max-height: 250px;"/>
+                        </t>
+                        
+                        <hr/>
+                        <h5 class="mt-4 mb-3">2. Sube tu comprobante de pago</h5>
+                        <form action="/snacks/pay/submit" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="owner_id" t-att-value="owner.id"/>
+                            
+                            <div class="mb-4">
+                                <input class="form-control form-control-lg" type="file" name="evidence" accept="image/*" required="1"/>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Confirmar Pago</button>
+                        </form>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,82 @@
+# PLAN DE IMPLEMENTACIÓN DETALLADO: OFFICE SNACKS (ODOO 19)
+
+## 1. RESUMEN DEL MÓDULO Y MEJORAS UX
+Módulo "office_snacks" para la gestión de venta de snacks en la oficina basado en la confianza. 
+Mejoras integradas:
+- Sesión persistente (Cookies/Local Token): El usuario escanea el QR, pone su PIN la primera vez y su sesión queda guardada. Cero fricción en siguientes compras.
+- Compra One-Tap (Ajax): Comprar una unidad con 1 solo clic desde el celular sin recargar la página entera.
+- Evidencia Simplificada: Mostrar el teléfono Nequi o QR del dueño en la pantalla al momento de reportar el pago, facilitando la transferencia.
+- Dashboard Consolidado: Agrupación automática de deuda. Un solo pago cancela todos los consumos pendientes con un dueño específico.
+
+## 2. ESPECIFICACIONES TÉCNICAS (RESTRICTIVAS PARA ODOO 19)
+- Vistas List: Uso estricto de `<list>` en vez del deprecado `<tree>`.
+- Vistas Form: Uso obligatorio de `<sheet>` dentro de los `<form>`.
+- Atributos dinámicos: Uso directo de `invisible="condicion"` y `readonly="condicion"` en vez del antiguo diccionario `attrs`.
+- Manifest: `version: '19.0.1.0.0'` y dependencia de `['base', 'website']`.
+- ORM: Uso de `self.env` de forma limpia y `@api.model_create_multi` para creaciones si aplica.
+- Controllers: Uso de `request.session` para la persistencia del usuario/PIN del portal público (sin obligar a usar `res.users`).
+
+## 3. ESTRUCTURA DE ARCHIVOS
+office_snacks/
+├── __init__.py
+├── __manifest__.py
+├── controllers/
+│   ├── __init__.py
+│   └── main.py              # Lógica de Login, Sesión persistente, Compra Ajax, y Pago.
+├── models/
+│   ├── __init__.py
+│   ├── res_partner.py       # Extensión: is_snack_user, snack_pin, nequi_phone, qr_payment
+│   ├── snack_product.py     # Productos e inventario simple
+│   ├── snack_consumption.py # Consumos individuales
+│   └── snack_payment.py     # Registro de pagos y vinculación automática
+├── security/
+│   ├── ir.model.access.csv  # Permisos de lectura/escritura general (portal/admin)
+│   └── security.xml         # Grupos (group_snack_owner) y Record Rules (Dueño solo ve lo suyo)
+├── views/
+│   ├── portal_templates.xml # Plantillas QWeb Móvil (One-Tap, QR Nequi)
+│   ├── snack_menus.xml      # Vistas Backend Odoo (<list>, <form>)
+│   └── res_partner_views.xml# Agregar campos PIN/Nequi al form de contactos
+└── static/
+    └── src/
+        └── js/
+            └── snack_portal.js # [NUEVO] Lógica Ajax para One-Tap buy en el celular.
+
+## 4. DETALLE DE MODELOS (Backend)
+
+* res_partner.py:
+  - `is_snack_user` (Boolean)
+  - `snack_pin` (Char, validación en backend)
+  - `nequi_phone` (Char, teléfono para transferencias)
+  - `qr_payment_image` (Binary, código QR del Nequi/Daviplata del dueño)
+
+* snack_product.py:
+  - `name` (Char), `price` (Float), `owner_id` (Many2one a res.partner), `stock` (Integer), `image` (Binary), `active` (Boolean).
+
+* snack_consumption.py:
+  - `consumer_id` (Many2one a res.partner), `product_id` (Many2one), `owner_id` (related: product_id.owner_id), `quantity` (Integer, default 1), `total_price` (Float compute), `state` ('unpaid', 'paid'), `payment_id` (Many2one).
+
+* snack_payment.py:
+  - `consumer_id`, `owner_id`, `amount`, `evidence` (Binary), `state` ('pending', 'approved', 'rejected').
+  - `consumption_ids` (One2many): Vincula consumos.
+  - Métodos `action_approve` y `action_reject` para actualizar estados de consumos vinculados.
+
+## 5. REGLAS DE NEGOCIO Y CONTROLADORES
+* Autenticación Portal: 
+  - Validar PIN ingresado.
+  - Guardar `request.session['snack_partner_id'] = partner.id`.
+* One-Tap Buy (Controlador Web): 
+  - Ruta Ajax que recibe `product_id`.
+  - Verifica sesión. Si existe, usa `sudo()` para reducir `stock` en 1 y crear el `office.snack.consumption`.
+  - Retorna JSON de éxito para mostrar Toast Notification en móvil.
+* Reportar Pago:
+  - Busca todos los consumos `unpaid` entre el consumidor logueado y el dueño seleccionado.
+  - Calcula monto total, muestra el `nequi_phone` y `qr_payment_image`.
+  - Al recibir imagen, crea `office.snack.payment` y asocia los consumos automáticamente.
+
+## 6. SEGURIDAD Y RECORD RULES (Odoo 19)
+- Grupo Odoo: `group_snack_owner` (Dueño de Snacks).
+- Regla de Productos: Los dueños gestionan solo sus productos (`owner_id = user.partner_id.id`).
+- Regla de Pagos: Los dueños solo pueden ver los pagos y consumos donde el `owner_id` son ellos.
+
+---
+-- ESPERANDO INSTRUCCIÓN PARA INICIAR CODIFICACIÓN --

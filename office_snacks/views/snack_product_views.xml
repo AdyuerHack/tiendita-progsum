@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_snack_product_list" model="ir.ui.view">
+            <field name="name">office.snack.product.list</field>
+            <field name="model">office.snack.product</field>
+            <field name="arch" type="xml">
+                <list string="Productos" decoration-muted="not active" decoration-danger="stock &lt;= 0">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/>
+                    <field name="currency_id" column_invisible="True"/>
+                    <field name="stock"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_snack_product_form" model="ir.ui.view">
+            <field name="name">office.snack.product.form</field>
+            <field name="model">office.snack.product</field>
+            <field name="arch" type="xml">
+                <form string="Producto">
+                    <sheet>
+                        <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" invisible="active"/>
+                        <field name="image" widget="image" class="oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" string="Nombre del Snack"/>
+                            <h1><field name="name" placeholder="Ej. Papitas"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="currency_id" invisible="True"/>
+                                <field name="owner_id"/>
+                            </group>
+                            <group>
+                                <field name="stock"/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

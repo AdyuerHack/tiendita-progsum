@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_partner_form_snack" model="ir.ui.view">
+            <field name="name">res.partner.form.snack</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="after">
+                    <page name="snack_settings" string="Configuración Snacks" groups="office_snacks.group_snack_owner,base.group_system">
+                        <group>
+                            <group string="Datos Básicos">
+                                <field name="is_snack_user"/>
+                                <field name="snack_pin" password="True"/> 
+                            </group>
+                            <group string="Información de Recaudo">
+                                <field name="payment_bank"/>
+                                <field name="payment_account"/>
+                                <field name="qr_payment_image" widget="image" class="oe_avatar"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_office_snack_product_owner,office.snack.product owner,model_office_snack_product,group_snack_owner,1,1,1,1
+access_office_snack_consumption_owner,office.snack.consumption owner,model_office_snack_consumption,group_snack_owner,1,0,0,0
+access_office_snack_payment_owner,office.snack.payment owner,model_office_snack_payment,group_snack_owner,1,1,0,0
+access_res_partner_snack_owner,res.partner snack owner,base.model_res_partner,group_snack_owner,1,0,0,0
+access_office_snack_product_admin,office.snack.product admin,model_office_snack_product,base.group_system,1,1,1,1
+access_office_snack_consumption_admin,office.snack.consumption admin,model_office_snack_consumption,base.group_system,1,1,1,1
+access_office_snack_payment_admin,office.snack.payment admin,model_office_snack_payment,base.group_system,1,1,1,1

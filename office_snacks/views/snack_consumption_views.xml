@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_snack_consumption_list" model="ir.ui.view">
+            <field name="name">office.snack.consumption.list</field>
+            <field name="model">office.snack.consumption</field>
+            <field name="arch" type="xml">
+                <list string="Consumos" create="false" edit="false">
+                    <field name="consumer_id"/>
+                    <field name="product_id"/>
+                    <field name="unit_price" widget="monetary"/>
+                    <field name="quantity"/>
+                    <field name="total_price" widget="monetary"/>
+                    <field name="currency_id" column_invisible="True"/>
+                    <field name="state" widget="badge" 
+                           decoration-danger="state == 'unpaid'" 
+                           decoration-warning="state == 'pending_payment'" 
+                           decoration-success="state == 'paid'"/>
+                </list>
+            </field>
+        </record>
+        
+        <record id="view_snack_consumption_form" model="ir.ui.view">
+            <field name="name">office.snack.consumption.form</field>
+            <field name="model">office.snack.consumption</field>
+            <field name="arch" type="xml">
+                <form string="Consumo" create="false" edit="false">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="consumer_id"/>
+                                <field name="product_id"/>
+                                <field name="unit_price" widget="monetary"/>
+                                <field name="quantity"/>
+                            </group>
+                            <group>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="total_price" widget="monetary"/>
+                                <field name="payment_id" invisible="not payment_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
