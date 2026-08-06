@@ -1,6 +1,6 @@
 {
     'name': 'Office Snacks',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'summary': 'Gestión de venta de snacks en la oficina basado en confianza',
     'description': 'Módulo para compras One-Tap y gestión de consumos y pagos de snacks.',
     'category': 'Sales',
