@@ -73,7 +73,9 @@ class OfficeSnacksController(http.Controller):
             PurchaseService.buy_product(request.env, consumer.id, int(product_id), quantity=1)
             return {'success': True, 'message': '¡Snack comprado exitosamente!'}
         except Exception as e:
-            return {'error': "No se pudo procesar la compra."}
+            import logging
+            logging.getLogger(__name__).error("Error in snacks_buy: %s", str(e), exc_info=True)
+            return {'error': str(e) or repr(e)}
 
     @http.route('/snacks/debt', type='http', auth='public', website=True)
     def snacks_debt(self, **kw):

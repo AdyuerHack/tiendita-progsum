@@ -30,6 +30,7 @@ class PurchaseService:
             'consumer_id': consumer.id,
             'product_id': product.id,
             'unit_price': product.price,
+            'currency_id': product.currency_id.id,
             'quantity': quantity,
             'state': 'unpaid'
         })
