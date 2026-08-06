@@ -10,7 +10,7 @@ class PurchaseService:
         Ejecuta una compra. Delega el control de concurrencia al modelo de producto.
         """
         # Elevamos privilegios de forma documentada porque el consumidor no tiene acceso a BD directamente.
-        sudo_env = env.sudo()
+        sudo_env = env(su=True)
         
         # 1. Validar producto
         product = sudo_env['office.snack.product'].browse(product_id)

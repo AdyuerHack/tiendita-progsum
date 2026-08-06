@@ -16,7 +16,7 @@ class PaymentService:
         """
         Devuelve la deuda agrupada por dueño para un consumidor específico.
         """
-        sudo_env = env.sudo()
+        sudo_env = env(su=True)
         consumptions = sudo_env['office.snack.consumption'].search([
             ('consumer_id', '=', consumer_id),
             ('state', '=', 'unpaid')
@@ -45,7 +45,7 @@ class PaymentService:
         """
         Crea el pago y vincula los consumos.
         """
-        sudo_env = env.sudo()
+        sudo_env = env(su=True)
         
         # 1. Buscar consumos unpaid del consumidor hacia ese dueño
         consumptions = sudo_env['office.snack.consumption'].search([
