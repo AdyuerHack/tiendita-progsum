@@ -30,10 +30,10 @@ class ResPartner(models.Model):
             self.snack_pin_hash = generate_password_hash(plain_text)
 
     def _check_snack_pin(self, plain_text):
-        """Verifica el PIN contra el hash almacenado. Si no hay PIN, usa 0000 por defecto."""
+        """Verifica el PIN contra el hash almacenado. Si no hay PIN, usa 12345 por defecto."""
         self.ensure_one()
         if not plain_text:
             return False
         if not self.snack_pin_hash:
-            return plain_text == "0000"
+            return plain_text == "12345"
         return check_password_hash(self.snack_pin_hash, plain_text)

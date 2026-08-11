@@ -69,31 +69,31 @@
         <record id="user_marmo" model="res.users">
             <field name="name">Marmo</field>
             <field name="login">marmo</field>
-            <field name="password">1234</field>
+            <field name="password">12345</field>
             <field name="partner_id" ref="partner_marmo"/>
         </record>
         <record id="user_neumann" model="res.users">
             <field name="name">Daniel Neumann</field>
             <field name="login">neumann</field>
-            <field name="password">1234</field>
+            <field name="password">12345</field>
             <field name="partner_id" ref="partner_neumann"/>
         </record>
         <record id="user_anita" model="res.users">
             <field name="name">Anita</field>
             <field name="login">anita</field>
-            <field name="password">1234</field>
+            <field name="password">12345</field>
             <field name="partner_id" ref="partner_anita"/>
         </record>
         <record id="user_catalina" model="res.users">
             <field name="name">Catalina</field>
             <field name="login">catalina</field>
-            <field name="password">1234</field>
+            <field name="password">12345</field>
             <field name="partner_id" ref="partner_catalina"/>
         </record>
         <record id="user_alejo" model="res.users">
             <field name="name">Alejo / Builes</field>
             <field name="login">alejo</field>
-            <field name="password">1234</field>
+            <field name="password">12345</field>
             <field name="partner_id" ref="partner_alejo"/>
         </record>
 
