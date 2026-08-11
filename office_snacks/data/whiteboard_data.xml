@@ -144,6 +144,13 @@
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_dulces"/>
         </record>
+        <record id="prod_trufas_oreo" model="office.snack.product">
+            <field name="name">Trufas (Oreo)</field>
+            <field name="price">4000</field>
+            <field name="owner_id" ref="partner_catalina"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_dulces"/>
+        </record>
         <record id="prod_crispetas" model="office.snack.product">
             <field name="name">Crispetas</field>
             <field name="price">3500</field>
