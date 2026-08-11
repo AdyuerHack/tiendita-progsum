@@ -38,9 +38,11 @@ class PurchaseService:
         return True
 
     @staticmethod
-    def get_available_products(env):
-        """Retorna los productos que el consumidor puede ver."""
-        return env['office.snack.product'].sudo().search([
-            ('active', '=', True), 
-            ('stock', '>', 0)
-        ])
+    def get_available_products(env, search_term=None, category_id=None):
+        """Retorna los productos que el consumidor puede ver filtrados."""
+        domain = [('active', '=', True), ('stock', '>', 0)]
+        if search_term:
+            domain.append(('name', 'ilike', search_term))
+        if category_id:
+            domain.append(('category_id', '=', int(category_id)))
+        return env['office.snack.product'].sudo().search(domain)

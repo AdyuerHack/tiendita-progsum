@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Limpieza de Base de Datos -->
+    <data>
+        <delete model="office.snack.payment" search="[]"/>
+        <delete model="office.snack.consumption" search="[]"/>
+        <delete model="office.snack.product" search="[]"/>
+        <delete model="office.snack.category" search="[]"/>
+    </data>
+
+    <data noupdate="1">
+        <!-- Dueños / Vendedores -->
+        <record id="partner_oficina" model="res.partner">
+            <field name="name">La Oficina</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+        </record>
+        <record id="partner_dueno_nequi" model="res.partner">
+            <field name="name">Dueño Nequi</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+            <field name="payment_bank">Nequi</field>
+            <field name="payment_account">3007508342</field>
+        </record>
+        <record id="partner_marmo" model="res.partner">
+            <field name="name">Marmo</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+            <field name="payment_bank">Bancolombia Ahorros</field>
+            <field name="payment_account">33147498255</field>
+        </record>
+        <record id="partner_neumann" model="res.partner">
+            <field name="name">Daniel Neumann</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+            <field name="payment_bank">Llave</field>
+            <field name="payment_account">@Neumann782</field>
+        </record>
+
+        <!-- Consumidores -->
+        <record id="partner_a_prieto" model="res.partner"><field name="name">A. Prieto</field><field name="is_snack_user">True</field></record>
+        <record id="partner_sebas_z" model="res.partner"><field name="name">Sebas Z</field><field name="is_snack_user">True</field></record>
+        <record id="partner_juan_d" model="res.partner"><field name="name">Juan D.</field><field name="is_snack_user">True</field></record>
+        <record id="partner_sara" model="res.partner"><field name="name">Sara</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ana_correa" model="res.partner"><field name="name">Ana Correa</field><field name="is_snack_user">True</field></record>
+        <record id="partner_dani" model="res.partner"><field name="name">Dani</field><field name="is_snack_user">True</field></record>
+        <record id="partner_mateo" model="res.partner"><field name="name">Mateo</field><field name="is_snack_user">True</field></record>
+        <record id="partner_catalina" model="res.partner"><field name="name">Catalina</field><field name="is_snack_user">True</field></record>
+        <record id="partner_adyuer" model="res.partner"><field name="name">Adyuer</field><field name="is_snack_user">True</field></record>
+        <record id="partner_anita" model="res.partner"><field name="name">Anita</field><field name="is_snack_user">True</field></record>
+        <record id="partner_juan" model="res.partner"><field name="name">Juan</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daniel" model="res.partner"><field name="name">Daniel</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ana_ma_correa" model="res.partner"><field name="name">Ana Ma Correa</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daniela" model="res.partner"><field name="name">Daniela</field><field name="is_snack_user">True</field></record>
+        <record id="partner_alejo" model="res.partner"><field name="name">Alejo</field><field name="is_snack_user">True</field></record>
+        <record id="partner_builes" model="res.partner"><field name="name">Builes</field><field name="is_snack_user">True</field></record>
+        <record id="partner_mate" model="res.partner"><field name="name">Mate</field><field name="is_snack_user">True</field></record>
+        <record id="partner_caro" model="res.partner"><field name="name">Caro</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ivan" model="res.partner"><field name="name">Ivan</field><field name="is_snack_user">True</field></record>
+        <record id="partner_juan_felipe" model="res.partner"><field name="name">Juan Felipe</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daya" model="res.partner"><field name="name">Daya</field><field name="is_snack_user">True</field></record>
+
+        <!-- Productos -->
+        <record id="prod_papas" model="office.snack.product">
+            <field name="name">Papas</field>
+            <field name="price">3500</field>
+            <field name="owner_id" ref="partner_dueno_nequi"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_salados"/>
+        </record>
+        <record id="prod_sodas_marmo" model="office.snack.product">
+            <field name="name">Sodas Marmo</field>
+            <field name="price">2300</field>
+            <field name="owner_id" ref="partner_marmo"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_bebidas"/>
+        </record>
+        <record id="prod_gaseosa" model="office.snack.product">
+            <field name="name">Gaseosa</field>
+            <field name="price">2500</field>
+            <field name="owner_id" ref="partner_neumann"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_bebidas"/>
+        </record>
+        <record id="prod_trufas_milo" model="office.snack.product">
+            <field name="name">Trufas (Milo)</field>
+            <field name="price">4000</field>
+            <field name="owner_id" ref="partner_oficina"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_dulces"/>
+        </record>
+        <record id="prod_trufas_amargo" model="office.snack.product">
+            <field name="name">Trufas (Choc. Amargo)</field>
+            <field name="price">4500</field>
+            <field name="owner_id" ref="partner_oficina"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_dulces"/>
+        </record>
+        <record id="prod_crispetas" model="office.snack.product">
+            <field name="name">Crispetas</field>
+            <field name="price">3500</field>
+            <field name="owner_id" ref="partner_oficina"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_salados"/>
+        </record>
+        <record id="prod_brownies" model="office.snack.product">
+            <field name="name">Brownies</field>
+            <field name="price">1000</field>
+            <field name="owner_id" ref="partner_oficina"/>
+            <field name="stock">100</field>
+            <field name="category_id" ref="office_snacks.category_dulces"/>
+        </record>
+
+        <!-- Consumos: Papas -->
+        <record id="cons_papas_prieto" model="office.snack.consumption"><field name="consumer_id" ref="partner_a_prieto"/><field name="product_id" ref="prod_papas"/><field name="quantity">2</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_sebas" model="office.snack.consumption"><field name="consumer_id" ref="partner_sebas_z"/><field name="product_id" ref="prod_papas"/><field name="quantity">1</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_juand" model="office.snack.consumption"><field name="consumer_id" ref="partner_juan_d"/><field name="product_id" ref="prod_papas"/><field name="quantity">0</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_sara" model="office.snack.consumption"><field name="consumer_id" ref="partner_sara"/><field name="product_id" ref="prod_papas"/><field name="quantity">8</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_anac" model="office.snack.consumption"><field name="consumer_id" ref="partner_ana_correa"/><field name="product_id" ref="prod_papas"/><field name="quantity">4</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_dani" model="office.snack.consumption"><field name="consumer_id" ref="partner_dani"/><field name="product_id" ref="prod_papas"/><field name="quantity">3</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_mateo" model="office.snack.consumption"><field name="consumer_id" ref="partner_mateo"/><field name="product_id" ref="prod_papas"/><field name="quantity">6</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_cata" model="office.snack.consumption"><field name="consumer_id" ref="partner_catalina"/><field name="product_id" ref="prod_papas"/><field name="quantity">2</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_adyuer" model="office.snack.consumption"><field name="consumer_id" ref="partner_adyuer"/><field name="product_id" ref="prod_papas"/><field name="quantity">5</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+
+        <!-- Consumos: Sodas Marmo -->
+        <record id="cons_sodas_sara" model="office.snack.consumption"><field name="consumer_id" ref="partner_sara"/><field name="product_id" ref="prod_sodas_marmo"/><field name="quantity">4</field><field name="unit_price">2300</field><field name="state">unpaid</field></record>
+        <record id="cons_sodas_anita" model="office.snack.consumption"><field name="consumer_id" ref="partner_anita"/><field name="product_id" ref="prod_sodas_marmo"/><field name="quantity">3</field><field name="unit_price">2300</field><field name="state">unpaid</field></record>
+        <record id="cons_sodas_juan" model="office.snack.consumption"><field name="consumer_id" ref="partner_juan"/><field name="product_id" ref="prod_sodas_marmo"/><field name="quantity">1</field><field name="unit_price">2300</field><field name="state">unpaid</field></record>
+        <record id="cons_sodas_adyuer" model="office.snack.consumption"><field name="consumer_id" ref="partner_adyuer"/><field name="product_id" ref="prod_sodas_marmo"/><field name="quantity">2</field><field name="unit_price">2300</field><field name="state">unpaid</field></record>
+
+        <!-- Consumos: Gaseosa -->
+        <record id="cons_gas_sara" model="office.snack.consumption"><field name="consumer_id" ref="partner_sara"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">2</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_mateo" model="office.snack.consumption"><field name="consumer_id" ref="partner_mateo"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">6</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_daniel" model="office.snack.consumption"><field name="consumer_id" ref="partner_daniel"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">3</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_adyuer" model="office.snack.consumption"><field name="consumer_id" ref="partner_adyuer"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">7</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_anita" model="office.snack.consumption"><field name="consumer_id" ref="partner_anita"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">3</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_anamc" model="office.snack.consumption"><field name="consumer_id" ref="partner_ana_ma_correa"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">2</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_daniela" model="office.snack.consumption"><field name="consumer_id" ref="partner_daniela"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">5</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_marmo" model="office.snack.consumption"><field name="consumer_id" ref="partner_marmo"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">3</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+        <record id="cons_gas_alejo" model="office.snack.consumption"><field name="consumer_id" ref="partner_alejo"/><field name="product_id" ref="prod_gaseosa"/><field name="quantity">1</field><field name="unit_price">2500</field><field name="state">unpaid</field></record>
+
+        <!-- Consumos: Trufas -->
+        <record id="cons_trufam_builes" model="office.snack.consumption"><field name="consumer_id" ref="partner_builes"/><field name="product_id" ref="prod_trufas_milo"/><field name="quantity">2</field><field name="unit_price">4000</field><field name="state">unpaid</field></record>
+        <record id="cons_trufam_mate" model="office.snack.consumption"><field name="consumer_id" ref="partner_mate"/><field name="product_id" ref="prod_trufas_milo"/><field name="quantity">2</field><field name="unit_price">4000</field><field name="state">unpaid</field></record>
+        
+        <record id="cons_trufa_marmo" model="office.snack.consumption"><field name="consumer_id" ref="partner_marmo"/><field name="product_id" ref="prod_trufas_amargo"/><field name="quantity">2</field><field name="unit_price">4500</field><field name="state">unpaid</field></record>
+        <record id="cons_trufa_caro" model="office.snack.consumption"><field name="consumer_id" ref="partner_caro"/><field name="product_id" ref="prod_trufas_amargo"/><field name="quantity">1</field><field name="unit_price">4500</field><field name="state">unpaid</field></record>
+        <record id="cons_trufa_ivan" model="office.snack.consumption"><field name="consumer_id" ref="partner_ivan"/><field name="product_id" ref="prod_trufas_amargo"/><field name="quantity">2</field><field name="unit_price">4500</field><field name="state">unpaid</field></record>
+
+        <!-- Consumos: Crispetas -->
+        <record id="cons_crisp_juanf" model="office.snack.consumption"><field name="consumer_id" ref="partner_juan_felipe"/><field name="product_id" ref="prod_crispetas"/><field name="quantity">1</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_crisp_daya" model="office.snack.consumption"><field name="consumer_id" ref="partner_daya"/><field name="product_id" ref="prod_crispetas"/><field name="quantity">1</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+
+        <!-- Consumos: Brownies -->
+        <record id="cons_brow_anac" model="office.snack.consumption"><field name="consumer_id" ref="partner_ana_correa"/><field name="product_id" ref="prod_brownies"/><field name="quantity">1</field><field name="unit_price">1000</field><field name="state">unpaid</field></record>
+        <record id="cons_brow_dani" model="office.snack.consumption"><field name="consumer_id" ref="partner_dani"/><field name="product_id" ref="prod_brownies"/><field name="quantity">4</field><field name="unit_price">1000</field><field name="state">unpaid</field></record>
+        <record id="cons_brow_marmo" model="office.snack.consumption"><field name="consumer_id" ref="partner_marmo"/><field name="product_id" ref="prod_brownies"/><field name="quantity">2</field><field name="unit_price">1000</field><field name="state">unpaid</field></record>
+
+    </data>
+</odoo>

@@ -9,6 +9,9 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'data/snack_category_data.xml',
+        'data/whiteboard_data.xml',
+        'views/snack_category_views.xml',
         'views/snack_menus.xml',
         'views/snack_product_views.xml',
         'views/snack_consumption_views.xml',

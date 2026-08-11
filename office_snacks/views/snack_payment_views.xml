@@ -5,15 +5,14 @@
             <field name="name">office.snack.payment.list</field>
             <field name="model">office.snack.payment</field>
             <field name="arch" type="xml">
-                <list string="Pagos" create="false">
+                <list string="Pagos" create="false" decoration-info="state == 'pending'" decoration-success="state == 'approved'" decoration-danger="state == 'rejected'">
+                    <field name="evidence" widget="image" options="{'size': [50, 50]}"/>
                     <field name="consumer_id"/>
                     <field name="amount" widget="monetary"/>
                     <field name="currency_id" column_invisible="True"/>
                     <field name="create_date" string="Fecha"/>
-                    <field name="state" widget="badge" 
-                           decoration-info="state == 'pending'" 
-                           decoration-success="state == 'approved'" 
-                           decoration-danger="state == 'rejected'"/>
+                    <field name="state" widget="badge"/>
+                    <button name="action_approve" type="object" string="Aprobar" class="oe_highlight" invisible="state != 'pending'" icon="fa-check"/>
                 </list>
             </field>
         </record>

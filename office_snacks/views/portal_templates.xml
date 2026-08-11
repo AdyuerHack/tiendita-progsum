@@ -48,11 +48,38 @@
                     <div>
                         <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
                         <a href="/snacks/debt" class="btn btn-outline-danger me-2">Mis Deudas</a>
+                        <a href="/snacks/history" class="btn btn-outline-info me-2">Mi Historial</a>
                         <a href="/snacks/logout" class="btn btn-outline-secondary">Salir</a>
+                    </div>
+                </div>
+
+                <!-- Buscador y Filtros -->
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-2">
+                        <form action="/snacks" method="get" class="d-flex">
+                            <input type="hidden" name="category" t-att-value="current_category or ''"/>
+                            <input type="text" name="search" class="form-control me-2" placeholder="Buscar snack..." t-att-value="current_search"/>
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+                        </form>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-center flex-wrap gap-2">
+                        <a t-attf-href="/snacks?search=#{current_search or ''}" t-attf-class="badge rounded-pill text-decoration-none #{not current_category and 'text-bg-primary' or 'text-bg-light border'}">
+                            Todas
+                        </a>
+                        <t t-foreach="categories" t-as="cat">
+                            <a t-attf-href="/snacks?category=#{cat.id}&amp;search=#{current_search or ''}" t-attf-class="badge rounded-pill text-decoration-none #{current_category == cat.id and 'text-bg-primary' or 'text-bg-light border'}">
+                                <t t-esc="cat.name"/>
+                            </a>
+                        </t>
                     </div>
                 </div>
                 
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                    <t t-if="not products">
+                        <div class="col-12 text-center text-muted py-5">
+                            <h4>No se encontraron productos.</h4>
+                        </div>
+                    </t>
                     <t t-foreach="products" t-as="product">
                         <div class="col">
                             <div class="card h-100 text-center shadow-sm">
@@ -61,9 +88,13 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold text-truncate" t-esc="product.name"></h5>
+                                    <span t-if="product.category_id" class="badge rounded-pill text-bg-info mb-2"><t t-esc="product.category_id.name"/></span>
                                     <p class="card-text text-muted mb-2"><t t-esc="product.price" t-options='{"widget": "monetary", "display_currency": product.currency_id}'/></p>
                                     <p class="small text-muted mb-3">Disp: <t t-esc="product.stock"/></p>
-                                    <button class="btn btn-primary w-100 js_buy_snack" t-att-data-product-id="product.id">Comprar</button>
+                                    <div class="d-flex justify-content-center align-items-center gap-2">
+                                        <input type="number" class="form-control form-control-sm text-center snack-qty" value="1" min="1" t-att-max="product.stock" style="width: 60px;"/>
+                                        <button class="btn btn-primary w-100 js_buy_snack" t-att-data-product-id="product.id">Comprar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -148,6 +179,40 @@
                             <button type="submit" class="btn btn-primary btn-lg w-100">Confirmar Pago</button>
                         </form>
                     </div>
+                </div>
+            </t>
+        </template>
+        <template id="history_template" name="Mi Historial">
+            <t t-call="office_snacks.snack_layout">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3>Mi Historial de Consumos</h3>
+                    <a href="/snacks" class="btn btn-outline-secondary">Volver al Catálogo</a>
+                </div>
+                
+                <t t-if="not consumptions">
+                    <div class="text-center mt-5 text-muted">
+                        <i class="fa fa-history fa-4x mb-3"></i>
+                        <h4>Aún no has consumido nada.</h4>
+                    </div>
+                </t>
+                
+                <div class="list-group">
+                    <t t-foreach="consumptions" t-as="consumption">
+                        <div class="list-group-item d-flex justify-content-between align-items-center p-3 shadow-sm mb-2 rounded border">
+                            <div>
+                                <h5 class="mb-1"><t t-esc="consumption.product_id.name"/> <span class="badge bg-secondary ms-2">x<t t-esc="consumption.quantity"/></span></h5>
+                                <small class="text-muted"><t t-esc="consumption.create_date" t-options="{'widget': 'datetime'}"/></small>
+                                <div class="mt-1">
+                                    <t t-if="consumption.state == 'unpaid'"><span class="badge bg-danger">Deuda</span></t>
+                                    <t t-if="consumption.state == 'pending_payment'"><span class="badge bg-warning text-dark">Pago en Revisión</span></t>
+                                    <t t-if="consumption.state == 'paid'"><span class="badge bg-success">Pagado</span></t>
+                                </div>
+                            </div>
+                            <h4 class="mb-0 text-primary fw-bold">
+                                <t t-esc="consumption.total_price" t-options="{'widget': 'monetary', 'display_currency': consumption.currency_id}"/>
+                            </h4>
+                        </div>
+                    </t>
                 </div>
             </t>
         </template>

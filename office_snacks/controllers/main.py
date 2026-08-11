@@ -48,29 +48,49 @@ class OfficeSnacksController(http.Controller):
         return request.redirect('/snacks/login')
 
     @http.route('/snacks', type='http', auth='public', website=True)
-    def snacks_catalog(self, **kw):
+    def snacks_catalog(self, search=None, category=None, **kw):
         """Catálogo principal de productos (One-Tap)."""
         consumer = self._get_consumer()
         if not consumer:
             return request.redirect('/snacks/login')
         
         # Delegamos lectura segura
-        products = PurchaseService.get_available_products(request.env)
+        products = PurchaseService.get_available_products(request.env, search_term=search, category_id=category)
+        categories = request.env['office.snack.category'].sudo().search([('active', '=', True)])
         
         return request.render('office_snacks.catalog_template', {
             'consumer': consumer,
-            'products': products
+            'products': products,
+            'categories': categories,
+            'current_search': search,
+            'current_category': int(category) if category else None
+        })
+
+    @http.route('/snacks/history', type='http', auth='public', website=True)
+    def snacks_history(self, **kw):
+        """Historial de consumos del usuario."""
+        consumer = self._get_consumer()
+        if not consumer:
+            return request.redirect('/snacks/login')
+            
+        consumptions = request.env['office.snack.consumption'].sudo().search(
+            [('consumer_id', '=', consumer.id)], order='create_date desc'
+        )
+        
+        return request.render('office_snacks.history_template', {
+            'consumer': consumer,
+            'consumptions': consumptions
         })
 
     @http.route('/snacks/buy', type='json', auth='public', methods=['POST'], csrf=True)
-    def snacks_buy(self, product_id, **kw):
-        """Endpoint Ajax para la compra One-Tap."""
+    def snacks_buy(self, product_id, quantity=1, **kw):
+        """Endpoint Ajax para la compra One-Tap con cantidad."""
         consumer = self._get_consumer()
         if not consumer:
             return {'error': 'unauthorized', 'redirect': '/snacks/login'}
         
         try:
-            PurchaseService.buy_product(request.env, consumer.id, int(product_id), quantity=1)
+            PurchaseService.buy_product(request.env, consumer.id, int(product_id), quantity=int(quantity))
             return {'success': True, 'message': '¡Snack comprado exitosamente!'}
         except Exception as e:
             import logging

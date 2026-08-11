@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_snack_category_list" model="ir.ui.view">
+            <field name="name">office.snack.category.list</field>
+            <field name="model">office.snack.category</field>
+            <field name="arch" type="xml">
+                <list string="Categorías" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="action_snack_category" model="ir.actions.act_window">
+            <field name="name">Categorías de Snacks</field>
+            <field name="res_model">office.snack.category</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
+</odoo>

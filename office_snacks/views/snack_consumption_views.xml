@@ -46,5 +46,30 @@
                 </form>
             </field>
         </record>
+
+        <record id="view_snack_consumption_graph" model="ir.ui.view">
+            <field name="name">office.snack.consumption.graph</field>
+            <field name="model">office.snack.consumption</field>
+            <field name="arch" type="xml">
+                <graph string="Análisis de Consumos" type="bar">
+                    <field name="product_id" type="row"/>
+                    <field name="quantity" type="measure"/>
+                    <field name="total_price" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_snack_consumption_pivot" model="ir.ui.view">
+            <field name="name">office.snack.consumption.pivot</field>
+            <field name="model">office.snack.consumption</field>
+            <field name="arch" type="xml">
+                <pivot string="Análisis Pivot de Consumos">
+                    <field name="consumer_id" type="row"/>
+                    <field name="product_id" type="col"/>
+                    <field name="quantity" type="measure"/>
+                    <field name="total_price" type="measure"/>
+                </pivot>
+            </field>
+        </record>
     </data>
 </odoo>

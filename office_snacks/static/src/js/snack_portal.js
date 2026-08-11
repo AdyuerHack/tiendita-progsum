@@ -28,6 +28,9 @@ function initSnackPortal() {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var productId = this.getAttribute('data-product-id');
+            var qtyInput = this.closest('.card-body').querySelector('.snack-qty');
+            var quantity = qtyInput ? parseInt(qtyInput.value) : 1;
+            
             var csrfInput = document.querySelector('input[name="csrf_token"]');
             var csrfToken = csrfInput ? csrfInput.value : '';
             
@@ -45,6 +48,7 @@ function initSnackPortal() {
                     method: "call",
                     params: {
                         product_id: productId,
+                        quantity: quantity,
                         csrf_token: csrfToken
                     }
                 })
@@ -67,8 +71,8 @@ function initSnackPortal() {
                     var stockEl = btn.closest('.card-body').querySelector('p.small');
                     if (stockEl) {
                         var currentStock = parseInt(stockEl.innerText.replace('Disp: ', ''));
-                        if (!isNaN(currentStock) && currentStock > 0) {
-                            var newStock = currentStock - 1;
+                        if (!isNaN(currentStock) && currentStock >= quantity) {
+                            var newStock = currentStock - quantity;
                             stockEl.innerText = 'Disp: ' + newStock;
                             if (newStock === 0) {
                                 btn.disabled = true;
@@ -78,10 +82,17 @@ function initSnackPortal() {
                         }
                     }
 
+                    // Visual Feedback in button
+                    btn.innerText = '¡Comprado! ✓';
+                    btn.classList.add('btn-success');
+                    btn.classList.remove('btn-primary');
+
                     setTimeout(function () {
                         btn.disabled = false;
                         btn.innerText = originalText;
-                    }, 1000);
+                        btn.classList.remove('btn-success');
+                        btn.classList.add('btn-primary');
+                    }, 1500);
                 }
             })
             .catch(error => {

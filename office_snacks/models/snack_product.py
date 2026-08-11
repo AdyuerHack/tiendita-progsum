@@ -12,6 +12,7 @@ class SnackProduct(models.Model):
     owner_id = fields.Many2one('res.partner', string="Dueño", required=True, 
                                domain="[('is_snack_vendor', '=', True)]",
                                default=lambda self: self.env.user.partner_id.id)
+    category_id = fields.Many2one('office.snack.category', string="Categoría")
     stock = fields.Integer(string="Stock", default=0, required=True)
     image = fields.Binary(string="Imagen")
     active = fields.Boolean(string="Activo", default=True)

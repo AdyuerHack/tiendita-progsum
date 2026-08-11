@@ -6,3 +6,5 @@ access_res_partner_snack_owner,res.partner snack owner,base.model_res_partner,gr
 access_office_snack_product_admin,office.snack.product admin,model_office_snack_product,base.group_system,1,1,1,1
 access_office_snack_consumption_admin,office.snack.consumption admin,model_office_snack_consumption,base.group_system,1,1,1,1
 access_office_snack_payment_admin,office.snack.payment admin,model_office_snack_payment,base.group_system,1,1,1,1
+access_office_snack_category_admin,office.snack.category admin,model_office_snack_category,base.group_system,1,1,1,1
+access_office_snack_category_owner,office.snack.category owner,model_office_snack_category,group_snack_owner,1,0,0,0
