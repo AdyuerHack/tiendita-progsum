@@ -26,7 +26,7 @@ class SnackPayment(models.Model):
             if record.state != 'pending':
                 raise UserError("Solo se pueden aprobar pagos pendientes.")
             record.with_context(allow_state_change=True).write({'state': 'approved'})
-            record.consumption_ids.write({'state': 'paid'})
+            record.sudo().consumption_ids.write({'state': 'paid'})
 
     def action_reject(self):
         for record in self:
@@ -34,7 +34,7 @@ class SnackPayment(models.Model):
                 raise UserError("Solo se pueden rechazar pagos pendientes.")
             record.with_context(allow_state_change=True).write({'state': 'rejected'})
             # Liberamos consumos
-            record.consumption_ids.write({
+            record.sudo().consumption_ids.write({
                 'state': 'unpaid',
                 'payment_id': False
             })
