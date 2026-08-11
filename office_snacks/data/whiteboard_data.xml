@@ -27,6 +27,7 @@
 
         <!-- Consumidores (algunos ahora son Vendedores también) -->
         <record id="partner_a_prieto" model="res.partner"><field name="name">A. Prieto</field><field name="is_snack_user">True</field></record>
+        <record id="partner_sebas_z" model="res.partner"><field name="name">SEBAS-NEUMAN</field><field name="is_snack_user">True</field></record>
         <record id="partner_juan_d" model="res.partner"><field name="name">Juan D.</field><field name="is_snack_user">True</field></record>
         <record id="partner_sara" model="res.partner"><field name="name">Sara</field><field name="is_snack_user">True</field></record>
         <record id="partner_ana_correa" model="res.partner"><field name="name">Ana Correa</field><field name="is_snack_user">True</field></record>
@@ -162,7 +163,7 @@
 
         <!-- Consumos: Papas -->
         <record id="cons_papas_prieto" model="office.snack.consumption"><field name="consumer_id" ref="partner_a_prieto"/><field name="product_id" ref="prod_papas"/><field name="quantity">2</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
-        <record id="cons_papas_sebas" model="office.snack.consumption"><field name="consumer_id" ref="partner_neumann"/><field name="product_id" ref="prod_papas"/><field name="quantity">1</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
+        <record id="cons_papas_sebas" model="office.snack.consumption"><field name="consumer_id" ref="partner_sebas_z"/><field name="product_id" ref="prod_papas"/><field name="quantity">1</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
         <record id="cons_papas_juand" model="office.snack.consumption"><field name="consumer_id" ref="partner_juan_d"/><field name="product_id" ref="prod_papas"/><field name="quantity">0</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
         <record id="cons_papas_sara" model="office.snack.consumption"><field name="consumer_id" ref="partner_sara"/><field name="product_id" ref="prod_papas"/><field name="quantity">8</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
         <record id="cons_papas_anac" model="office.snack.consumption"><field name="consumer_id" ref="partner_ana_correa"/><field name="product_id" ref="prod_papas"/><field name="quantity">4</field><field name="unit_price">3500</field><field name="state">unpaid</field></record>
