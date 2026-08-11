@@ -36,6 +36,36 @@
             <field name="payment_account">@Neumann782</field>
         </record>
 
+        <!-- Usuarios del Sistema para los Dueños -->
+        <record id="user_oficina" model="res.users">
+            <field name="name">La Oficina</field>
+            <field name="login">oficina</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_oficina"/>
+            <field name="groups_id" eval="[(4, ref('office_snacks.group_snack_owner'))]"/>
+        </record>
+        <record id="user_dueno_nequi" model="res.users">
+            <field name="name">Dueño Nequi</field>
+            <field name="login">nequi</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_dueno_nequi"/>
+            <field name="groups_id" eval="[(4, ref('office_snacks.group_snack_owner'))]"/>
+        </record>
+        <record id="user_marmo" model="res.users">
+            <field name="name">Marmo</field>
+            <field name="login">marmo</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_marmo"/>
+            <field name="groups_id" eval="[(4, ref('office_snacks.group_snack_owner'))]"/>
+        </record>
+        <record id="user_neumann" model="res.users">
+            <field name="name">Daniel Neumann</field>
+            <field name="login">neumann</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_neumann"/>
+            <field name="groups_id" eval="[(4, ref('office_snacks.group_snack_owner'))]"/>
+        </record>
+
         <!-- Consumidores -->
         <record id="partner_a_prieto" model="res.partner"><field name="name">A. Prieto</field><field name="is_snack_user">True</field></record>
         <record id="partner_sebas_z" model="res.partner"><field name="name">Sebas Z</field><field name="is_snack_user">True</field></record>
