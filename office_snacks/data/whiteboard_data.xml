@@ -7,20 +7,9 @@
         <delete model="office.snack.product" search="[]"/>
     </data>
 
-    <data noupdate="1">
-        <!-- Dueños / Vendedores -->
-        <record id="partner_oficina" model="res.partner">
-            <field name="name">La Oficina</field>
-            <field name="is_snack_user">True</field>
-            <field name="is_snack_vendor">True</field>
-        </record>
-        <record id="partner_dueno_nequi" model="res.partner">
-            <field name="name">Dueño Nequi</field>
-            <field name="is_snack_user">True</field>
-            <field name="is_snack_vendor">True</field>
-            <field name="payment_bank">Nequi</field>
-            <field name="payment_account">3007508342</field>
-        </record>
+    <!-- Usamos noupdate="0" para asegurar que los datos antiguos se reescriban -->
+    <data noupdate="0">
+        <!-- Dueños / Vendedores Originales -->
         <record id="partner_marmo" model="res.partner">
             <field name="name">Marmo</field>
             <field name="is_snack_user">True</field>
@@ -36,19 +25,53 @@
             <field name="payment_account">@Neumann782</field>
         </record>
 
+        <!-- Consumidores (algunos ahora son Vendedores también) -->
+        <record id="partner_a_prieto" model="res.partner"><field name="name">A. Prieto</field><field name="is_snack_user">True</field></record>
+        <record id="partner_sebas_z" model="res.partner"><field name="name">Sebas Z</field><field name="is_snack_user">True</field></record>
+        <record id="partner_juan_d" model="res.partner"><field name="name">Juan D.</field><field name="is_snack_user">True</field></record>
+        <record id="partner_sara" model="res.partner"><field name="name">Sara</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ana_correa" model="res.partner"><field name="name">Ana Correa</field><field name="is_snack_user">True</field></record>
+        <record id="partner_dani" model="res.partner"><field name="name">Dani</field><field name="is_snack_user">True</field></record>
+        <record id="partner_mateo" model="res.partner"><field name="name">Mateo</field><field name="is_snack_user">True</field></record>
+        
+        <!-- Catalina ahora es Vendedora -->
+        <record id="partner_catalina" model="res.partner">
+            <field name="name">Catalina</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+        </record>
+        
+        <record id="partner_adyuer" model="res.partner"><field name="name">Adyuer</field><field name="is_snack_user">True</field></record>
+        
+        <!-- Anita ahora es Vendedora (Dueña Nequi) -->
+        <record id="partner_anita" model="res.partner">
+            <field name="name">Anita</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+            <field name="payment_bank">Nequi</field>
+            <field name="payment_account">3007508342</field>
+        </record>
+        
+        <record id="partner_juan" model="res.partner"><field name="name">Juan</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daniel" model="res.partner"><field name="name">Daniel</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ana_ma_correa" model="res.partner"><field name="name">Ana Ma Correa</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daniela" model="res.partner"><field name="name">Daniela</field><field name="is_snack_user">True</field></record>
+        
+        <!-- Alejo ahora es Vendedor -->
+        <record id="partner_alejo" model="res.partner">
+            <field name="name">Alejo</field>
+            <field name="is_snack_user">True</field>
+            <field name="is_snack_vendor">True</field>
+        </record>
+        
+        <record id="partner_builes" model="res.partner"><field name="name">Builes</field><field name="is_snack_user">True</field></record>
+        <record id="partner_mate" model="res.partner"><field name="name">Mate</field><field name="is_snack_user">True</field></record>
+        <record id="partner_caro" model="res.partner"><field name="name">Caro</field><field name="is_snack_user">True</field></record>
+        <record id="partner_ivan" model="res.partner"><field name="name">Ivan</field><field name="is_snack_user">True</field></record>
+        <record id="partner_juan_felipe" model="res.partner"><field name="name">Juan Felipe</field><field name="is_snack_user">True</field></record>
+        <record id="partner_daya" model="res.partner"><field name="name">Daya</field><field name="is_snack_user">True</field></record>
+
         <!-- Usuarios del Sistema para los Dueños -->
-        <record id="user_oficina" model="res.users">
-            <field name="name">La Oficina</field>
-            <field name="login">oficina</field>
-            <field name="password">1234</field>
-            <field name="partner_id" ref="partner_oficina"/>
-        </record>
-        <record id="user_dueno_nequi" model="res.users">
-            <field name="name">Dueño Nequi</field>
-            <field name="login">nequi</field>
-            <field name="password">1234</field>
-            <field name="partner_id" ref="partner_dueno_nequi"/>
-        </record>
         <record id="user_marmo" model="res.users">
             <field name="name">Marmo</field>
             <field name="login">marmo</field>
@@ -61,40 +84,35 @@
             <field name="password">1234</field>
             <field name="partner_id" ref="partner_neumann"/>
         </record>
+        <record id="user_anita" model="res.users">
+            <field name="name">Anita</field>
+            <field name="login">anita</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_anita"/>
+        </record>
+        <record id="user_catalina" model="res.users">
+            <field name="name">Catalina</field>
+            <field name="login">catalina</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_catalina"/>
+        </record>
+        <record id="user_alejo" model="res.users">
+            <field name="name">Alejo</field>
+            <field name="login">alejo</field>
+            <field name="password">1234</field>
+            <field name="partner_id" ref="partner_alejo"/>
+        </record>
 
         <!-- Asignar Usuarios al Grupo Dueños -->
         <record id="office_snacks.group_snack_owner" model="res.groups">
-            <field name="users" eval="[(4, ref('user_oficina')), (4, ref('user_dueno_nequi')), (4, ref('user_marmo')), (4, ref('user_neumann'))]"/>
+            <field name="users" eval="[(4, ref('user_marmo')), (4, ref('user_neumann')), (4, ref('user_anita')), (4, ref('user_catalina')), (4, ref('user_alejo'))]"/>
         </record>
-
-        <!-- Consumidores -->
-        <record id="partner_a_prieto" model="res.partner"><field name="name">A. Prieto</field><field name="is_snack_user">True</field></record>
-        <record id="partner_sebas_z" model="res.partner"><field name="name">Sebas Z</field><field name="is_snack_user">True</field></record>
-        <record id="partner_juan_d" model="res.partner"><field name="name">Juan D.</field><field name="is_snack_user">True</field></record>
-        <record id="partner_sara" model="res.partner"><field name="name">Sara</field><field name="is_snack_user">True</field></record>
-        <record id="partner_ana_correa" model="res.partner"><field name="name">Ana Correa</field><field name="is_snack_user">True</field></record>
-        <record id="partner_dani" model="res.partner"><field name="name">Dani</field><field name="is_snack_user">True</field></record>
-        <record id="partner_mateo" model="res.partner"><field name="name">Mateo</field><field name="is_snack_user">True</field></record>
-        <record id="partner_catalina" model="res.partner"><field name="name">Catalina</field><field name="is_snack_user">True</field></record>
-        <record id="partner_adyuer" model="res.partner"><field name="name">Adyuer</field><field name="is_snack_user">True</field></record>
-        <record id="partner_anita" model="res.partner"><field name="name">Anita</field><field name="is_snack_user">True</field></record>
-        <record id="partner_juan" model="res.partner"><field name="name">Juan</field><field name="is_snack_user">True</field></record>
-        <record id="partner_daniel" model="res.partner"><field name="name">Daniel</field><field name="is_snack_user">True</field></record>
-        <record id="partner_ana_ma_correa" model="res.partner"><field name="name">Ana Ma Correa</field><field name="is_snack_user">True</field></record>
-        <record id="partner_daniela" model="res.partner"><field name="name">Daniela</field><field name="is_snack_user">True</field></record>
-        <record id="partner_alejo" model="res.partner"><field name="name">Alejo</field><field name="is_snack_user">True</field></record>
-        <record id="partner_builes" model="res.partner"><field name="name">Builes</field><field name="is_snack_user">True</field></record>
-        <record id="partner_mate" model="res.partner"><field name="name">Mate</field><field name="is_snack_user">True</field></record>
-        <record id="partner_caro" model="res.partner"><field name="name">Caro</field><field name="is_snack_user">True</field></record>
-        <record id="partner_ivan" model="res.partner"><field name="name">Ivan</field><field name="is_snack_user">True</field></record>
-        <record id="partner_juan_felipe" model="res.partner"><field name="name">Juan Felipe</field><field name="is_snack_user">True</field></record>
-        <record id="partner_daya" model="res.partner"><field name="name">Daya</field><field name="is_snack_user">True</field></record>
 
         <!-- Productos -->
         <record id="prod_papas" model="office.snack.product">
             <field name="name">Papas</field>
             <field name="price">3500</field>
-            <field name="owner_id" ref="partner_dueno_nequi"/>
+            <field name="owner_id" ref="partner_anita"/>
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_salados"/>
         </record>
@@ -115,28 +133,28 @@
         <record id="prod_trufas_milo" model="office.snack.product">
             <field name="name">Trufas (Milo)</field>
             <field name="price">4000</field>
-            <field name="owner_id" ref="partner_oficina"/>
+            <field name="owner_id" ref="partner_catalina"/>
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_dulces"/>
         </record>
         <record id="prod_trufas_amargo" model="office.snack.product">
             <field name="name">Trufas (Choc. Amargo)</field>
             <field name="price">4500</field>
-            <field name="owner_id" ref="partner_oficina"/>
+            <field name="owner_id" ref="partner_catalina"/>
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_dulces"/>
         </record>
         <record id="prod_crispetas" model="office.snack.product">
             <field name="name">Crispetas</field>
             <field name="price">3500</field>
-            <field name="owner_id" ref="partner_oficina"/>
+            <field name="owner_id" ref="partner_anita"/>
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_salados"/>
         </record>
         <record id="prod_brownies" model="office.snack.product">
             <field name="name">Brownies</field>
             <field name="price">1000</field>
-            <field name="owner_id" ref="partner_oficina"/>
+            <field name="owner_id" ref="partner_alejo"/>
             <field name="stock">100</field>
             <field name="category_id" ref="office_snacks.category_dulces"/>
         </record>
