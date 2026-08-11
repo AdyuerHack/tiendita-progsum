@@ -32,7 +32,12 @@
                         <t t-name="card">
                             <div class="oe_kanban_global_click">
                                 <div class="o_kanban_image">
-                                    <field name="image" widget="image"/>
+                                    <t t-if="record.image.raw_value">
+                                        <field name="image" widget="image"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/office_snacks/static/src/img/default_snack.png" alt="Default Snack" class="w-100 h-100 object-fit-contain opacity-75"/>
+                                    </t>
                                 </div>
                                 <div class="oe_kanban_details">
                                     <strong class="o_kanban_record_title"><field name="name"/></strong>

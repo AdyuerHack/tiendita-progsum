@@ -85,6 +85,7 @@
                             <div class="card h-100 text-center shadow-sm">
                                 <div class="card-img-top p-3 text-center">
                                     <img t-if="product.image" t-att-src="image_data_uri(product.image)" class="img-fluid" style="max-height: 120px;" alt="Snack"/>
+                                    <img t-else="" src="/office_snacks/static/src/img/default_snack.png" class="img-fluid opacity-50" style="max-height: 120px;" alt="Snack"/>
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title fw-bold text-truncate" t-esc="product.name"></h5>
