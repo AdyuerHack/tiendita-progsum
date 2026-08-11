@@ -97,11 +97,6 @@
             <field name="partner_id" ref="partner_alejo"/>
         </record>
 
-        <!-- Asignar Usuarios al Grupo Dueños usando function para saltar el noupdate="1" -->
-        <function model="res.groups" name="write">
-            <value eval="[ref('office_snacks.group_snack_owner')]"/>
-            <value eval="{'users': [(4, ref('user_marmo')), (4, ref('user_neumann')), (4, ref('user_anita')), (4, ref('user_catalina')), (4, ref('user_alejo'))]}"/>
-        </function>
 
 
         <!-- Productos -->
