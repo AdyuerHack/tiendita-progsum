@@ -5,8 +5,6 @@
         <delete model="office.snack.payment" search="[]"/>
         <delete model="office.snack.consumption" search="[]"/>
         <delete model="office.snack.product" search="[]"/>
-        <delete model="res.users" search="[('login', 'in', ['oficina', 'dueno_nequi', 'sebas_z', 'daniel_neumann'])]"/>
-        <delete model="res.partner" search="[('name', 'in', ['Builes', 'Dani', 'Mate', 'Juan', 'Dueño Nequi', 'La Oficina', 'Marmolejo', 'Neuman', 'Sebas Z', 'Ana Ma Correa', 'Daniel Neumann'])]"/>
     </data>
 
     <!-- Usamos noupdate="0" para asegurar que los datos antiguos se reescriban -->
