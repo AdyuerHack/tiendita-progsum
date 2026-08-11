@@ -5,7 +5,6 @@
         <delete model="office.snack.payment" search="[]"/>
         <delete model="office.snack.consumption" search="[]"/>
         <delete model="office.snack.product" search="[]"/>
-        <delete model="office.snack.category" search="[]"/>
     </data>
 
     <data noupdate="1">
